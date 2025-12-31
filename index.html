@@ -3,166 +3,342 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>All Primary Math MCQs (upto 2025)</title>
+<title>Primary Math Master</title>
 
-<!-- MathJax CDN -->
-<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.cdnfonts.com/css/siyam-rupali" rel="stylesheet">
+                
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] },
+    startup: { typeset: false }
+  };
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
 <style>
-:root {
-    --bg: #f4f6fb;
-    --card: #ffffff;
-    --primary: #4f46e5;
-    --soft: #eef2ff;
-    --text: #0f172a;
-    --border: #e5e7eb;
-    --success: #16a34a;
-    --radius: 16px;
-    --shadow: 0 14px 40px rgba(0,0,0,.08);
-}
-
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body { padding: 40px 16px; font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif; background: linear-gradient(180deg, #f8fafc, #eef2ff); color: var(--text); }
-h2 { text-align: center; margin-bottom: 30px; font-size: 28px; }
-
-/* MCQ card */
-.mcq { max-width: 900px; margin: 0 auto 24px; background: var(--card); border-radius: var(--radius); padding: 22px 26px; box-shadow: var(--shadow); transition: transform 0.2s ease; }
-.mcq:hover { transform: translateY(-2px); }
-
-/* Question */
-.question { font-size: 17px; font-weight: 600; color: var(--primary); cursor: pointer; margin-bottom: 14px; }
-.question:hover { text-decoration: underline; }
-
-/* Options */
-.options { list-style: none; padding: 0; margin: 0 0 16px; }
-.options li { padding: 10px 14px; margin-bottom: 10px; background: #f9fafb; border: 1px solid var(--border); border-radius: 12px; transition: background 0.2s; }
-.options li:hover { background: var(--soft); }
-
-/* Button */
-button { background: linear-gradient(135deg, var(--primary), #6366f1); color: #fff; border: none; padding: 10px 18px; border-radius: 999px; font-weight: 600; cursor: pointer; transition: background 0.2s; }
-button:hover { background: linear-gradient(135deg, #6366f1, var(--primary)); }
-
-/* Answer */
-.answer { margin-top: 14px; padding: 12px 16px; border-radius: 12px; background: #ecfdf5; color: var(--success); font-weight: 600; display: none; }
-
-/* Mobile */
-@media (max-width: 600px) {
-    h2 { font-size: 22px; }
-    .mcq { padding: 18px; }
-}
-</style>
-</head>
-
-<body>
-
-<h2>All Primary Math MCQs (upto 2025)</h2>
-<div id="mcqContainer"></div>
-
-<script>
-// Function to convert MathML to plain text
-function mathMLToText(mathML) {
-    const parser = new DOMParser();
-    const xmlDoc = parser.parseFromString(mathML, "text/xml");
-
-    function traverse(node) {
-        if (!node) return "";
-
-        switch (node.nodeName) {
-            case "math":
-            case "mrow":
-                return Array.from(node.childNodes).map(traverse).join("");
-            case "mn":
-            case "mi":
-                return node.textContent;
-            case "mo":
-                return node.textContent;
-            case "mfrac":
-                const numerator = traverse(node.childNodes[0]);
-                const denominator = traverse(node.childNodes[1]);
-                return `(${numerator}/${denominator})`;
-            case "msup":
-            case "sup": // HTML sup
-                const baseSup = traverse(node.childNodes[0]);
-                const exp = traverse(node.childNodes[1]);
-                return `(${baseSup}^${exp})`;
-            case "msub":
-            case "sub": // HTML sub
-                const baseSub = traverse(node.childNodes[0]);
-                const sub = traverse(node.childNodes[1]);
-                return `(${baseSub}_${sub})`;
-            default:
-                return Array.from(node.childNodes).map(traverse).join("");
-        }
+    :root {
+        --primary: #6366f1;
+        --primary-dark: #4f46e5;
+        --accent: #ec4899;
+        --bg-grad: linear-gradient(135deg, #f3f4f6 0%, #e0e7ff 100%);
+        --card-bg: #ffffff;
+        --text-main: #1f2937;
+        --text-muted: #6b7280;
+        --border: #e5e7eb;
+        --success-bg: #d1fae5;
+        --success-text: #065f46;
+        --error-bg: #fee2e2;
+        --error-text: #991b1b;
+        --shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.1);
+        --radius: 16px;
     }
 
-    return traverse(xmlDoc.documentElement);
+    body {
+        margin: 0;
+        padding: 40px 20px;
+          background: var(--bg-grad);
+        min-height: 100vh;
+        color: var(--text-main);
+     /* font-family: 'Siyam Rupali', sans-serif;*/
+    
+    }
+
+    header { text-align: center; margin-bottom: 40px; }
+    h1 { font-size: 2.5rem; font-weight: 700; color: var(--primary-dark); margin: 0; }
+    p.subtitle { color: var(--text-muted); margin-top: 8px; font-size: 1.1rem; }
+
+    .container { max-width: 800px; margin: 0 auto; }
+
+    .error-box {
+        background: var(--error-bg);
+        color: var(--error-text);
+        padding: 20px;
+        border-radius: var(--radius);
+        text-align: center;
+        border: 1px solid #fca5a5;
+        margin-bottom: 20px;
+        display: none;
+    }
+
+    .mcq-card {
+        background: var(--card-bg);
+        border-radius: var(--radius);
+        padding: 30px;
+        margin-bottom: 30px;
+        box-shadow: var(--shadow);
+        border: 1px solid rgba(255,255,255,0.5);
+    }
+     .question-badge {
+        display: inline-block;
+        background: #eef2ff;
+        color: var(--primary);
+        padding: 4px 12px;
+        border-radius: 99px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        margin-bottom: 12px;
+    }
+
+    .question-text {
+        font-size: 1rem;
+        font-weight: 600;
+        margin-bottom: 20px;
+        line-height: 1.3;
+    }
+
+    .options-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        margin-bottom: 24px;
+    }
+
+    @media (max-width: 600px) { .options-grid { grid-template-columns: 1fr; } }
+
+    .option-item {
+        background: #f9fafb;
+        border: 2px solid var(--border);
+        padding: 12px 16px;
+        border-radius: 12px;
+        font-size: 1rem;
+        color: var(--text-main);
+        display: flex;
+        align-items: center;
+    }
+img{display: block}
+    .option-marker {
+        width: 28px;
+        height: 28px;
+        background: #e5e7eb;
+        color: var(--text-muted);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.85rem;
+        font-weight: 700;
+        margin-right: 12px;
+    }
+
+    .action-area {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 20px;
+        border-top: 1px solid var(--border);
+        padding-top: 20px;
+    }
+
+    .btn-solve {
+        background: var(--primary);
+        color: white;
+        border: none;
+        padding: 12px 24px;
+        border-radius: 12px;
+        font-family: inherit;
+        font-weight: 600;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        transition: all 0.2s;
+    }
+
+    .btn-solve:hover { background: var(--primary-dark); transform: translateY(-2px); }
+    .btn-solve:disabled { background: #9ca3af; cursor: not-allowed; }
+
+    .result-box {
+        margin-top: 20px;
+        display: none;
+        animation: fadeIn 0.4s ease;
+    }
+
+    .correct-answer {
+        background: var(--success-bg);
+        color: var(--success-text);
+        padding: 12px 16px;
+        border-radius: 10px;
+        font-weight: 600;
+        display: inline-block;
+        margin-bottom: 16px;
+    }
+
+    .ai-explanation {
+        background: #f8fafc;
+        border-left: 4px solid var(--accent);
+        padding: 20px;
+        border-radius: 0 12px 12px 0;
+        font-size: 1rem;
+        line-height: 1.8;
+    }
+
+    .loader {
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        border: 2px solid rgba(255,255,255,0.3);
+        border-radius: 50%;
+        border-top-color: #fff;
+        animation: spin 1s linear infinite;
+    }
+math * {font-family: unset !important}
+
+ 
+    @keyframes spin { to { transform: rotate(360deg); } }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+</style>
+</head>
+<body>
+
+<header>
+    <h1>Primary Math Genius</h1>
+    <p class="subtitle">AI Powered Explanation</p>
+</header>
+
+<div class="container">
+    <div id="errorBox" class="error-box"></div>
+    <div id="mcqContainer"></div>
+</div>
+
+<script>
+/* ================= CONFIGURATION ================= */
+const GEMINI_API_KEY = "AIzaSyB78HEjeQwfMR45Z3WhWxad_SdBaexVA1M";// "AIzaSyBSXsR-Mn4uHN2JLSR_S_uvWQFcBB-8JCA"; 
+const GEMINI_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${GEMINI_API_KEY}`;
+
+/* ================= UTILS ================= */
+function showError(msg) {
+    const box = document.getElementById("errorBox");
+    box.style.display = "block";
+    box.innerHTML = `<strong>ত্রুটি:</strong> ${msg}`;
 }
 
-// Convert all MathML in text
-function convertMathMLInText(text) {
-    const mathMLRegex = /<math[\s\S]*?<\/math>/g;
-    return text.replace(mathMLRegex, (match) => mathMLToText(match));
-}
+async function getAIExplanation(question, options, correctAnswer) {
+    // RAW HTML passed, no stripping
+    const prompt = `
+    Task: এটা জবের বিগত বছরের একট এমসিকিউ। খুব সহজে ও খুব ছোট করে ব্যাখ্যা দিবা। অতিরিক্ত কিছু চাই না। জব প্রিপারেশন বইয়ে যেভাবে থাকে সেভাবে উত্তর চাই.
+    
+    Question: "${question}"
+    Options: ${options.join(', ')}
+    Correct Answer: "${correctAnswer}"
 
+    Guidelines:
+    ১. প্রথমে বোল্ড করে হুবহু প্রশ্ন টি দিবা। যদি তোমাকে কোনো Mathjax/matml কোড দেওয়া হয় সেটা আগে ম্যাথ ইকুয়েশ্ন এ রুপান্তর করে ব্যাখ্যা দিবা। Use LaTeX for math expressions.
+    ২. ম্যাথ এর প্রতিটি লাইন একটার নিচে আরেটি বসাবা।
+    ৩. bold text for the final answer.
+    ৪. Output strictly in Markdown.
+    ৫. ম্যাথ ছাড়া অন্য টপিক হলে প্রশ্নটি সম্পর্কে খুব গুরুত্বপূর্ণ তথ্য সংক্ষিপ্ত আকারা দিবা।
+    `;
 
-// Fetch MCQs JSON
-fetch("json/primary_math.json")
-.then(res => res.json())
-.then(questions => {
-    const container = document.getElementById("mcqContainer");
-
-    questions.forEach((q, index) => {
-        const mcq = document.createElement("div");
-        mcq.className = "mcq";
-
-        // Question
-        const question = document.createElement("div");
-        question.className = "question";
-        question.innerHTML = `Q${index + 1}. ${q.label}`;
-        question.onclick = () => {
-            // Convert MathML to plain text for Google search
-            const searchText = convertMathMLInText(q.label);
-            const url = "https://www.google.com/search?q=" + encodeURIComponent(searchText);
-            window.open(url, "_blank");
-        };
-
-        // Options
-        const ul = document.createElement("ul");
-        ul.className = "options";
-        q.options.forEach((opt, i) => {
-            const li = document.createElement("li");
-            li.innerHTML = `${String.fromCharCode(97 + i)}. ${opt}`;
-            li.onclick = () => {
-                // Optional: search option individually
-                const searchText = convertMathMLInText(opt);
-                const url = "https://www.google.com/search?q=" + encodeURIComponent(searchText);
-                window.open(url);
-            };
-            ul.appendChild(li);
+    try {
+        const response = await fetch(GEMINI_URL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                contents: [{ parts: [{ text: prompt }] }]
+            })
         });
 
-        // Answer
-        const ans = document.createElement("div");
-        ans.className = "answer";
-        const correctIndex = q.answer.charCodeAt(0) - 97;
-        ans.innerHTML = `Correct Answer: ${q.options[correctIndex]}`;
+        const data = await response.json();
+        if (data.error) return `**API Error:** ${data.error.message}`;
+        return data.candidates?.[0]?.content?.parts?.[0]?.text || "দুঃখিত, কোনো ব্যাখ্যা পাওয়া যায়নি।";
+    } catch {
+        return "ইন্টারনেট সংযোগে সমস্যা হচ্ছে। আবার চেষ্টা করুন।";
+    }
+}
 
-        // Toggle button
-        const btn = document.createElement("button");
-        btn.textContent = "Show Answer";
-        btn.onclick = () => {
-            const open = ans.style.display === "block";
-            ans.style.display = open ? "none" : "block";
-            btn.textContent = open ? "Show Answer" : "Hide Answer";
+/* ================= MAIN LOGIC ================= */
+async function init() {
+    const container = document.getElementById("mcqContainer");
+    let questions = [];
+
+    try {
+        const res = await fetch("json/primary_math.json");
+        if (!res.ok) throw new Error("JSON ফাইল পাওয়া যায়নি");
+        questions = await res.json();
+    } catch (err) {
+        showError(err.message);
+        return;
+    }
+
+    questions.forEach((q, index) => {
+        const card = document.createElement("div");
+        card.className = "mcq-card";
+
+        const correctIndex = q.answer.toLowerCase().charCodeAt(0) - 97;
+        const correctAnswerText = q.options[correctIndex];
+
+        card.innerHTML = `
+            <span class="question-badge">প্রশ্ন ${index + 1}</span>
+            <div class="question-text">${q.label}</div>
+
+            <div class="options-grid">
+                ${q.options.map((opt, i) => `
+                    <div class="option-item">
+                        <span class="option-marker">${String.fromCharCode(65 + i)}</span>
+                        ${opt}
+                    </div>
+                `).join('')}
+            </div>
+
+            <div class="action-area">
+                <button class="btn-solve">
+                    <span>উত্তর ও ব্যাখ্যা দেখুন</span>
+                </button>
+            </div>
+
+            <div class="result-box">
+                <div class="correct-answer">✅ সঠিক উত্তর: ${correctAnswerText}</div>
+                <div class="ai-explanation"></div>
+            </div>
+        `;
+
+        const btn = card.querySelector(".btn-solve");
+        const resultBox = card.querySelector(".result-box");
+        const explanationBox = card.querySelector(".ai-explanation");
+        let isLoaded = false;
+
+        btn.onclick = async () => {
+            if (resultBox.style.display === "block") {
+                resultBox.style.display = "none";
+                btn.innerHTML = `<span>উত্তর ও ব্যাখ্যা দেখুন</span>`;
+                return;
+            }
+
+            resultBox.style.display = "block";
+
+            if (!isLoaded) {
+                btn.innerHTML = `<div class="loader"></div> <span>ব্যাখ্যা তৈরি হচ্ছে...</span>`;
+                btn.disabled = true;
+
+                const markdownText = await getAIExplanation(
+                    q.label,
+                    q.options,
+                    correctAnswerText
+                );
+
+                explanationBox.innerHTML = marked.parse(markdownText);
+
+                if (window.MathJax && window.MathJax.typesetPromise) {
+                    await MathJax.typesetPromise([explanationBox]);
+                }
+
+                btn.innerHTML = `<span>লুকান</span>`;
+                btn.disabled = false;
+                isLoaded = true;
+            } else {
+                btn.innerHTML = `<span>লুকান</span>`;
+            }
         };
 
-        mcq.append(question, ul, btn, ans);
-        container.appendChild(mcq);
-
-        // Render MathML using MathJax
-        MathJax.typesetPromise([mcq]);
+        container.appendChild(card);
     });
-});
+}
+
+init();
 </script>
 
 </body>
