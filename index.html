@@ -251,7 +251,7 @@ async function init() {
     let questions = [];
 
     try {
-        const res = await fetch("json/primary_math.json");
+        const res = await fetch("json/primary.json");
         if (!res.ok) throw new Error("JSON ফাইল পাওয়া যায়নি");
         questions = await res.json();
     } catch (err) {
