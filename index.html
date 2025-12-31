@@ -250,7 +250,7 @@ function showError(msg) {
     }
 }*/
   async function getAIExplanation(question, options, correctAnswer) {
-    // প্রম্পট আগের মতো একই রাখা হয়েছে
+    // আগের প্রম্পট একেবারে একই রাখা হয়েছে
     const prompt = `
     Task: এটা জবের বিগত বছরের একট এমসিকিউ। খুব সহজে ও খুব ছোট করে ব্যাখ্যা দিবা। অতিরিক্ত কিছু চাই না। জব প্রিপারেশন বইয়ে যেভাবে থাকে সেভাবে উত্তর চাই.
     
@@ -263,44 +263,34 @@ function showError(msg) {
     ২. ম্যাথ এর প্রতিটি লাইন একটার নিচে আরেটি বসাবা।
     ৩. bold text for the final answer.
     ৪. Output strictly in Markdown.
-    ৫. ম্যাথ হলে শুধু ওই ম্যাথ ছাড়া অন্য ব্যাখ্যা দিবে না। ম্যাথ ছাড়া অন্য টপিক হলে প্রশ্নটি সম্পর্কে খুব গুরুত্বপূর্ণ তথ্য, রিলেটেড তথ্য, বাকি অপশন গুলো কেনো নয়। লেখক এর ক্ষেত্রে তার রচনাবলীর লিস্ট, ইংরেজির ক্ষেত্রে শব্দের এবং অপশন গুলোর বাংলা অর্থ দিবা.
-
-    Output: JSON format with keys "question", "answer", "explanation".
-    Provide "explanation" in Markdown format.
+    ৫. ম্যাথ হলে শুধু ওই ম্যাথ ছাড়া অন্য ব্যাখ্যা দিবে না। ম্যাথ ছাড়া অন্য টপিক হলে প্রশ্নটি সম্পর্কে খুব গুরুত্বপূর্ণ তথ্য, রিলেটেড তথ্য, বাকি অপশন গুলো কেনো নয়। লেখক এর ক্ষেত্রে তার রচনাবলীর লিস্ট, ইংরেজির ক্ষেত্রে শব্দের এবং অপশন গুলোর বাংলা অর্থ দিবা।
     `;
 
     try {
-        const response = await fetch("https://api.deepseek.com/chat/completions", {
-            method: "POST",
+        const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+            method: 'POST',
             headers: {
-                "Content-Type": "application/json",
-                "Authorization": "Bearer sk-30349d66339d4434a59cb406a7ccbed0"
+                'Authorization': 'Bearer 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',
+                'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                model: "deepseek-chat",
+                model: 'openai/gpt-4o',
                 messages: [
-                    { role: "system", content: "You are a helpful assistant. Always respond in JSON format as instructed." },
-                    { role: "user", content: prompt }
+                    { role: 'system', content: "You are a helpful assistant." },
+                    { role: 'user', content: prompt }
                 ],
-                response_format: { type: "json_object" },
                 max_tokens: 500
             })
         });
 
         const data = await response.json();
-        if (data.choices?.[0]?.message?.content) {
-            const parsed = JSON.parse(data.choices[0].message.content);
-            return parsed.explanation || "দুঃখিত, কোনো ব্যাখ্যা পাওয়া যায়নি।";
-        } else if (data.error) {
-            return `**API Error:** ${data.error.message}`;
-        } else {
-            return "দুঃখিত, কোনো ব্যাখ্যা পাওয়া যায়নি।";
-        }
+        // ব্যাখ্যা নেওয়া
+        return data.choices?.[0]?.message?.content || "দুঃখিত, কোনো ব্যাখ্যা পাওয়া যায়নি।";
     } catch (err) {
         console.error(err);
         return "ইন্টারনেট সংযোগে সমস্যা হচ্ছে। আবার চেষ্টা করুন।";
     }
-      }
+}
 /* ================= MAIN LOGIC ================= */
 async function init() {
     const container = document.getElementById("mcqContainer");
