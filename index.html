@@ -216,19 +216,18 @@ async function getAIExplanation(question, options, correctAnswer) {
     const API_KEY = "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";
     const MODEL = "meta-llama/llama-3.2-3b-instruct:free";
     const prompt = `
-Task: এটা জবের বিগত বছরের একটি MCQ। এর ব্যাখ্যা দাও।
+Task: এটা জবের বিগত বছরের একটা এমসিকিউ। এটির ব্যাখ্যা দাও।
 
-Question: "${question}"
-Options: ${options.join(', ')}
-Correct Answer: "${correctAnswer}"
+Question: "${question}"  
+Options: ${options.join(', ')}  
+Correct Answer: "${correctAnswer}"  
 
-Rules:
-1. প্রশ্নটি হুবহু **bold** করে লিখবে।
-2. গণিত হলে LaTeX ব্যবহার করবে।
-3. চূড়ান্ত উত্তর **bold** হবে।
-4. আউটপুট অবশ্যই Markdown।
-5. নন-ম্যাথ (বাংলা/ইংরেজি/জিকে) হলে সংক্ষিপ্ত অতিরিক্ত রিলেটেড তথ্য দেবে এবং অন্য অপশনগুলো কী বোঝায় তা ছোট করে ব্যাখ্যা করবে।
-`;
+Guidelines:  
+১. প্রথমে বোল্ড করে হুবহু প্রশ্ন টি দিবা।  
+২. Use LaTeX for math.  
+৩. bold text for the final answer.  
+৪. Output strictly in Markdown.  
+৫. নন-ম্যাথ (বাংলা/ইংরেজি/জিকে) হলে সংক্ষিপ্ত অতিরিক্ত রিলেটেড তথ্য দেবে এবং অন্য অপশনগুলো কী বোঝায় তা ছোট করে ব্যাখ্যা করবে।`;
 
     console.log("--- Debug: Request Start ---");
     console.log("Target Model:", MODEL);
