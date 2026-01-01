@@ -215,8 +215,6 @@ function showError(msg) {
 async function getAIExplanation(question, options, correctAnswer) {
     const API_KEY = "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";
     const MODEL = "meta-llama/llama-3.2-3b-instruct:free";
-
-    const prompt = `
     const prompt = `
 Task: এটা জবের বিগত বছরের একটি MCQ। এর ব্যাখ্যা দাও।
 
