@@ -303,6 +303,8 @@ async function init() {
     questions.forEach((q, index) => {
         const card = document.createElement("div");
         card.className = "mcq-card";
+      card.id=index + 1;
+      
 
         const correctIndex = q.answer.toLowerCase().charCodeAt(0) - 97;
         const correctAnswerText = q.options[correctIndex];
