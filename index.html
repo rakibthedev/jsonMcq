@@ -240,7 +240,7 @@ async function getAIExplanation(question, options, correctAnswer) {
             headers: {
                 "Authorization": `Bearer ${API_KEY}`,
                 "Content-Type": "application/json",
-                "HTTP-Referer": "https://localhost", // OpenRouter-এর জন্য প্রয়োজন হতে পারে
+                "HTTP-Referer": "https://rakibthedev.github.io/jsonMcq" || "https://localhost", // OpenRouter-এর জন্য প্রয়োজন হতে পারে
                 "X-Title": "Job Prep AI"
             },
             body: JSON.stringify({
