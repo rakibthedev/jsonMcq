@@ -311,7 +311,7 @@ async function init() {
         const correctAnswerText = q.options[correctIndex];
 
         card.innerHTML = `
-            <span class="question-badge">প্রশ্ন ${index + 1}</span>
+            <span class="question-badge">প্রশ্ন ${index + 1} / {questions.length} </span>
             <div class="question-text">${q.label}</div>
 
             <div class="options-grid">
