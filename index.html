@@ -217,19 +217,20 @@ async function getAIExplanation(question, options, correctAnswer) {
     const MODEL = "meta-llama/llama-3.2-3b-instruct:free";
 
     const prompt = `
-    Task: এটা জবের বিগত বছরের একটা এমসিকিউ। এটির ব্যাখ্যা দাও।
-    
-    Question: "${question}"
-    Options: ${options.join(', ')}
-    Correct Answer: "${correctAnswer}"
+    const prompt = `
+Task: এটা জবের বিগত বছরের একটি MCQ। এর ব্যাখ্যা দাও।
 
-    Guidelines:
-    ১. প্রথমে বোল্ড করে হুবহু প্রশ্ন টি দিবা।
-    ২. Use LaTeX for math.
-    ৩. bold text for the final answer.
-    ৪. Output strictly in Markdown.
-    5. ম্যাথ ছাড়া অন্য টপিক বাংলা, ইংরেজি, সাধারণ জ্ঞান ইত্যাদি টপিক এর এমসিকিউ হলে রিলেটেড আরো তথ্য ছোট করে যুক্ত করবে। অন্য অপশনগুলো কি বুঝাচ্ছে তা ছোট করে বুঝিয়ে দিবে।
-     `;
+Question: "${question}"
+Options: ${options.join(', ')}
+Correct Answer: "${correctAnswer}"
+
+Rules:
+1. প্রশ্নটি হুবহু **bold** করে লিখবে।
+2. গণিত হলে LaTeX ব্যবহার করবে।
+3. চূড়ান্ত উত্তর **bold** হবে।
+4. আউটপুট অবশ্যই Markdown।
+5. নন-ম্যাথ (বাংলা/ইংরেজি/জিকে) হলে সংক্ষিপ্ত অতিরিক্ত রিলেটেড তথ্য দেবে এবং অন্য অপশনগুলো কী বোঝায় তা ছোট করে ব্যাখ্যা করবে।
+`;
 
     console.log("--- Debug: Request Start ---");
     console.log("Target Model:", MODEL);
@@ -240,7 +241,7 @@ async function getAIExplanation(question, options, correctAnswer) {
             headers: {
                 "Authorization": `Bearer ${API_KEY}`,
                 "Content-Type": "application/json",
-                "HTTP-Referer": "https://rakibthedev.github.io/jsonMcq" || "https://localhost", // OpenRouter-এর জন্য প্রয়োজন হতে পারে
+                "HTTP-Referer": window.location.origin || "https://localhost", // OpenRouter-এর জন্য প্রয়োজন হতে পারে
                 "X-Title": "Job Prep AI"
             },
             body: JSON.stringify({
