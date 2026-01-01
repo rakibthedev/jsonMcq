@@ -214,7 +214,7 @@ function showError(msg) {
 
 async function getAIExplanation(question, options, correctAnswer) {
     const API_KEY = "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";
-    const MODEL = "meta-llama/llama-3.1-70b-instruct";
+    const MODEL = "meta-llama/llama-3.2-3b-instruct:free";
 
     const prompt = `
     Task: এটা জবের বিগত বছরের একটা এমসিকিউ। এটির ব্যাখ্যা দাও।
@@ -228,6 +228,7 @@ async function getAIExplanation(question, options, correctAnswer) {
     ২. Use LaTeX for math.
     ৩. bold text for the final answer.
     ৪. Output strictly in Markdown.
+    5. ম্যাথ ছাড়া অন্য টপিক বাংলা, ইংরেজি, সাধারণ জ্ঞান ইত্যাদি টপিক এর এমসিকিউ হলে রিলেটেড আরো তথ্য যুক্ত করবে। অন্য অপশনগুলো কি বুঝাচ্ছে তা ও বুঝিয়ে দিবে।
      `;
 
     console.log("--- Debug: Request Start ---");
